@@ -1,0 +1,7 @@
+{
+  "name": "inbox-lead-triage",
+  "version": "1.0.0",
+  "description": "Scheduled inbox lead triage: deterministic scoring, lead sheet, draft replies (never sent).",
+  "skills": "./skills",
+  "commands": "./commands"
+}

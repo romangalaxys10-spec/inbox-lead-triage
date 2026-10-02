@@ -1,0 +1,16 @@
+{
+  "name": "inbox-lead-triage",
+  "owner": {
+    "name": "inbox-lead-triage contributors"
+  },
+  "plugins": [
+    {
+      "name": "inbox-lead-triage",
+      "source": "../../",
+      "version": "1.0.0",
+      "description": "Scheduled inbox lead triage: deterministic scoring, lead sheet, draft replies (never sent). Fetch adapters + prompt-injection defense built in.",
+      "displayName": "Inbox Lead Triage",
+      "category": "productivity"
+    }
+  ]
+}

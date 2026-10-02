@@ -1,0 +1,4 @@
+thread_id,received,name,company,email,channel,what_they_want,budget,timeline,score,tier,why,red_flags,draft_id,status,processed_at
+t-real,2026-10-01T09:12:00+03:00,Dan Miller,Acme,d.miller@acme.io,email,6-week automation build for lead follow-up,8-12k,start next month,84.5,A,decision maker stated budget concrete timeline,,t-real.md,drafted,2026-10-01T11:31:02+03:00
+t-vague,2026-10-01T10:02:00+03:00,,,,email,,,,,C,vague scope no budget,vague scope,,new,2026-10-01T11:31:02+03:00
+t-inj,2026-10-01T11:00:00+03:00,,fake-partner,hr@fake-partner.com,email,partnership + override our rules,,,,?,injection attempt,prompt_injection; spoofed reply-to,,flagged_injection,2026-10-01T11:31:02+03:00

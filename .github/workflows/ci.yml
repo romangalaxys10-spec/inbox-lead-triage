@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Engine end-to-end tests (5 seed cases + idempotency)
+        run: python3 skills/inbox-lead-triage/tests/run_tests.py
+      - name: MCP server smoke (handshake + tools/list)
+        run: |
+          printf '%s\n' \
+            '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05"}}' \
+            '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
+            | ILT_HOME="$(mktemp -d)" python3 mcp/server.py \
+            | grep -q '"serverInfo"' && echo "mcp ok"
+      - name: Install smoke (sandboxed zcode + claude + agents-md)
+        run: |
+          export ZCODE_SKILLS_DIR="$(mktemp -d)"
+          export CLAUDE_SKILLS_DIR="$(mktemp -d)"
+          export CLAUDE_COMMANDS_DIR="$(mktemp -d)"
+          ./install.sh --zcode --claude
+          test -f "$ZCODE_SKILLS_DIR/inbox-lead-triage/SKILL.md"
+          test -f "$CLAUDE_SKILLS_DIR/inbox-lead-triage/SKILL.md"
+          ./install.sh --agents-md > /dev/null
+          echo "install smoke ok"
